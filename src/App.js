@@ -1,28 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import GoogleMapReact from 'google-map-react';
 
-class App extends Component {
+import MainPanel from './MainPanel'
+import './styles.css';
+
+class Map extends Component {
+  static defaultProps = {
+    center: {
+      lat: 10.5065673,
+      lng: -66.8424434
+    },
+    zoom: 17
+  };
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+      <div>
+        <header>
+          <h1 className="main-title">Los Palos Grandes cool places</h1>
         </header>
+        {/* Component defined on https://www.npmjs.com/package/google-map-react */}
+        <div className="map" style={{ height: '90vh', width: '100%' }}>
+          <GoogleMapReact
+            bootstrapURLKeys={{ key: 'AIzaSyBB4845mdrbpL1Ub833ZI1JzneXenLBU_Q' }}
+            defaultCenter={this.props.center}
+            defaultZoom={this.props.zoom}
+          >
+          </GoogleMapReact>
+          <MainPanel />
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+export default Map;
