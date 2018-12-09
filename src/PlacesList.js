@@ -4,14 +4,18 @@ import React, { Component } from 'react';
 class PlacesList extends Component {
 
   render() {
+    const { places } = this.props
     return (
-      <ul className="places-list">
-        <li className="item"></li>
-        <li className="item"></li>
-        <li className="item"></li>
-        <li className="item"></li>
-        <li className="item"></li>
-      </ul>
+      <div>
+        <h3>Places to eat</h3>
+        <ul className="places-list">
+        {places.map((place) => (
+          <li key={place.id}>
+          <p>{place.title}</p>
+          </li>
+        ))}
+        </ul>
+      </div>
     );
   }
 }

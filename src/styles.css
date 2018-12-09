@@ -28,9 +28,11 @@ header h1 {
   width: 20%;
   height: 33vh;
   margin-top: 3vh;
-  margin-left: 3vh
+  margin-left: 3vh;
+  padding: 1vh
   }
-.places-list { list-style: none;}
+
+.places-list { list-style: none; padding: 0}
 .places-list .item {}
 a {
   color: #61dafb;

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PlacesList from './PlacesList'
+import PlacesSearch from './PlacesSearch'
+
 
 
 class MainPanel extends Component {
@@ -7,8 +9,8 @@ class MainPanel extends Component {
   render() {
     return (
       <div className="main-panel">
-      <PlacesList />
-
+        <PlacesList places={this.props.places} />
+        <PlacesSearch/>
       </div>
     );
   }
