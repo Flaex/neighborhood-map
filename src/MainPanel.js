@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PlacesList from './PlacesList'
-import PlacesSearch from './PlacesSearch'
 
 class MainPanel extends Component {
 
@@ -10,17 +9,18 @@ class MainPanel extends Component {
   }
 
   render() {
-    const { markers, map, init } = this.props
+    const { markers, map, maps, init, places, infowindows } = this.props
     return (
       <div className="main-panel">
         <h3>Places to eat</h3>
         <button className="reload" onClick={(e) => this.reloadAllMarkers(e)}></button>
         <PlacesList
-          places={this.props.places}
+          places={places}
           markers={markers}
+          infowindows={infowindows}
           map={map}
+          maps={maps}
           init={init} />
-        <PlacesSearch/>
       </div>
     );
   }
