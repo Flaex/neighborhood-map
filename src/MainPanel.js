@@ -3,9 +3,10 @@ import PlacesList from './PlacesList'
 
 class MainPanel extends Component {
 
-  reloadAllMarkers = (e) => {
-    const { markers, map } = this.props
+  reloadMarkers = (e) => {
+    const { markers, map, infowindows } = this.props
     markers.map(place => place.setMap(map))
+    infowindows.map(infowindow => infowindow.close())
   }
 
   render() {
@@ -13,7 +14,7 @@ class MainPanel extends Component {
     return (
       <div className="main-panel">
         <h3>Places to eat</h3>
-        <button className="reload" onClick={(e) => this.reloadAllMarkers(e)}></button>
+        <button className="reload" onClick={(e) => this.reloadMarkers(e)}></button>
         <PlacesList
           places={places}
           markers={markers}

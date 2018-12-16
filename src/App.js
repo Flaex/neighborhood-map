@@ -17,8 +17,9 @@ class Map extends Component {
   state = {
     places : [],
     markersArr : [],
-    infowindowsArr : [],
-    mapObj : {}
+    mapObj : {},
+    mapsObj : {},
+    infowindowsArr: []
   }
 
   componentDidMount() {
@@ -35,36 +36,39 @@ class Map extends Component {
       //
       let position = places[i].location
       let title = places[i].title
-      let label = places[i].id
+      // let label = places[i].id
+      var iconImage = {
+        url: 'icons/restaurant.svg',
+        size: new maps.Size(25,25),
+        origin: new maps.Point(0, 0),
+        anchor: new maps.Point(0, 0),
+        scaledSize: new maps.Size(25, 25)
+      }
       //
       let marker = new maps.Marker({
         map: map,
         position: position,
-        label: label,
+        // label: label,
         title: title,
+        icon: iconImage,
         animation: maps.Animation.DROP
       })
-      let infowindow = new maps.InfoWindow({
-        content: '<div>' + marker.title + '</div>'
-      })
-      markers.push(marker)
+      let infowindow = new maps.InfoWindow()
       infowindows.push(infowindow)
+      markers.push(marker)
+
       this.setState({markersArr: markers})
       this.setState({infowindowsArr: infowindows})
       this.setState({mapObj: map})
+      this.setState({mapsObj: maps})
 
-        // marker.addListener('mouseover', () => {
-        // //
-        //   if (iws.marker !== marker) {
-        //     iws.marker = marker;
-        //     iws.setContent('<div>' + marker.title + '</div>');
-        //     iws.open(map, marker)
-        //     //
-        //     iws.addListener('closeclick',function(){
-        //       iws.setMarker = null
-        //     })
-        //   }
-        // })
+      marker.addListener('click', () => {
+      //
+        if (infowindow.marker !== marker) {
+          infowindow.setContent('<div>' + marker.title + '</div>');
+          infowindow.open(map, marker);
+        }
+      })
     }
   }
 
@@ -72,7 +76,7 @@ class Map extends Component {
     return (
       <div>
         <header>
-          <h1 className="main-title">My top 5 places to eat in my Neighborhood</h1>
+          <h1 className="main-title">My favorite places to eat in my Neighborhood</h1>
         </header>
         {/* Component defined on https://www.npmjs.com/package/google-map-react */}
         <div className="map" style={{ height: '90vh', width: '100%' }}>
@@ -85,10 +89,11 @@ class Map extends Component {
           >
           </GoogleMapReact>
           <MainPanel
+            infowindows={this.state.infowindowsArr}
             map={this.state.mapObj}
+            maps={this.state.mapsObj}
             places={this.state.places}
             markers={this.state.markersArr}
-            infowindows={this.state.infowindowsArr}
             init={this.init} />
         </div>
       </div>

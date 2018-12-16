@@ -1,26 +1,46 @@
 import React, { Component } from 'react';
 
 class PlacesList extends Component {
-
+  //Render marker for selected option in dropdown
   filterClick = (e) => {
-    const { markers, map } = this.props
-    const titleMatch = markers.filter((place) => place.title === e)
-    const titleNoMatch = markers.filter((place) => place.title !== e)
-    if (titleMatch[0].title === e) {
-    titleNoMatch.map(place => place.setMap(null))
-    titleMatch.map(place => place.setMap(map))
+    const { markers, map, infowindows } = this.props
+    const selectedMarker = markers[e]
+    const markerMatch =  markers.filter((marker) => marker === selectedMarker )
+    const markerNomatch =  markers.filter((marker) => marker !== selectedMarker )
+    if (e === 'choose') {
+      //Avoid errors if "Choose a restaurant" option is selected on dropdown
+    } else {
+      markerNomatch.map(marker => marker.setMap(null))
+      markerMatch.map(marker => marker.setMap(map))
+      infowindows[e].marker = selectedMarker
+      infowindows[e].setContent(`<div class="infowindow">${selectedMarker.title}</div>`)
+      infowindows[e].open(map, selectedMarker)
+    }
+
+  }
+   //Render infowindows onMouseOver event in restaurant list elements
+  renderInfowindow = (e) => {
+    const { markers, map, maps, infowindows } = this.props
+    const marker = markers[e]
+    if (marker.map !== null) {
+      infowindows[e].marker = marker
+      infowindows[e].setContent(`<div class="infowindow">${marker.title}</div>`)
+      infowindows[e].open(map, marker)
+      marker.setAnimation(maps.Animation.BOUNCE)
+    } else if (marker.map === null) {
+      marker.setMap(map)
+      marker.setAnimation(maps.Animation.BOUNCE)
+      infowindows[e].marker = marker
+      infowindows[e].setContent(`<div class="infowindow">${marker.title}</div>`)
+      infowindows[e].open(map, marker)
     }
   }
-
-  listClick = (e) => {
-    const { markers, map, infowindows } = this.props
-    const indexMatch = infowindows[e]
-    const markerMatch = markers[e]
-    console.log(indexMatch, markerMatch)
-    console.log(e)
-
-
-
+  //Remove infowindows onMouseLeave event in restaurant list elements
+  removeInfowindow = (e) => {
+    const { markers, infowindows } = this.props
+    const marker = markers[e]
+    infowindows[e].close()
+    marker.setAnimation(null)
   }
 
   render() {
@@ -31,15 +51,17 @@ class PlacesList extends Component {
         {places.map((place) => (
           <li key={place.id}>
             <button id={places.indexOf(place)}
-              onClick={(e) => this.listClick(e.target.id)}>
-            {place.id}. {place.title}</button>
+              onMouseOver={(e) => this.renderInfowindow(e.target.id)}
+              onMouseLeave={(e) => this.removeInfowindow(e.target.id)}>
+            {place.title}</button>
           </li>
         ))}
         </ul>
         <h4>Filter locations</h4>
         <select onChange={(e) => this.filterClick(e.target.value)}>
+          <option value='choose' defaultValue>Choose a restaurant:</option>
           {places.map((place) => (
-            <option key={place.id} value={place.title}>{place.title}</option>
+            <option key={place.id} value={places.indexOf(place)}>{place.title}</option>
           ))}
         </select>
       </div>

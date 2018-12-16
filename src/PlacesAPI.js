@@ -7,6 +7,10 @@ const locations = [
   {id: 'c', title: 'Chef Woo', location: {lat: 10.4972978, lng: -66.8475386}},
   {id: 'd', title: 'Franca Cupcakes', location: {lat: 10.4987404, lng: -66.8472482}},
   {id: 'e', title: 'Pincho Pan', location: {lat: 10.5007164, lng: -66.8438593}},
+  {id: 'f', title: 'Come a Casa', location: {lat: 10.4990048, lng: -66.8471932}},
+  {id: 'g', title: 'Los Costilla', location: {lat: 10.5017731, lng: -66.8457472}},
+  {id: 'h', title: 'Maxi Donas', location: {lat: 10.499225, lng: -66.8445794}},
+  {id: 'i', title: 'La Cuadra Gastronómica', location: {lat: 10.5017731, lng: -66.8501246}},
 ]
 
 export const search = () =>
