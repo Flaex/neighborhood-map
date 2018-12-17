@@ -5,6 +5,7 @@ class PlacesList extends Component {
   filterClick = (e) => {
     const { markers, map, infowindows } = this.props
     const selectedMarker = markers[e]
+    const index = e
     const markerMatch =  markers.filter((marker) => marker === selectedMarker )
     const markerNomatch =  markers.filter((marker) => marker !== selectedMarker )
     if (e === 'choose') {
@@ -16,7 +17,9 @@ class PlacesList extends Component {
       infowindows[e].setContent(`<div class="infowindow">${selectedMarker.title}</div>`)
       infowindows[e].open(map, selectedMarker)
     }
-
+    if (this.props.onGetImage) {
+      this.props.onGetImage(index)
+    }
   }
    //Render infowindows onMouseOver event in restaurant list elements
   renderInfowindow = (e) => {
@@ -46,14 +49,15 @@ class PlacesList extends Component {
   render() {
     const { places } = this.props
     return (
-      <div>
+      <div className="places-container">
         <ul className="places-list">
         {places.map((place) => (
           <li key={place.id}>
-            <button id={places.indexOf(place)}
+            <p id={places.indexOf(place)}
               onMouseOver={(e) => this.renderInfowindow(e.target.id)}
               onMouseLeave={(e) => this.removeInfowindow(e.target.id)}>
-            {place.title}</button>
+            {place.title}</p>
+            <p className="category">{place.category}</p>
           </li>
         ))}
         </ul>

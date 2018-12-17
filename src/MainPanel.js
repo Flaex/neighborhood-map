@@ -9,6 +9,12 @@ class MainPanel extends Component {
     infowindows.map(infowindow => infowindow.close())
   }
 
+  getImage = (index) => {
+    if (this.props.onGetImage) {
+      this.props.onGetImage(index)
+    }
+  }
+
   render() {
     const { markers, map, maps, init, places, infowindows } = this.props
     return (
@@ -16,6 +22,9 @@ class MainPanel extends Component {
         <h3>Places to eat</h3>
         <button className="reload" onClick={(e) => this.reloadMarkers(e)}></button>
         <PlacesList
+          onGetImage={(index) => {
+            this.getImage(index)
+          }}
           places={places}
           markers={markers}
           infowindows={infowindows}

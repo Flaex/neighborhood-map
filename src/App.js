@@ -19,11 +19,12 @@ class Map extends Component {
     markersArr : [],
     mapObj : {},
     mapsObj : {},
-    infowindowsArr: []
+    infowindowsArr: [],
+    fourSquareIDs : []
   }
 
   componentDidMount() {
-  PlacesAPI.getAll().then((places) => {
+    PlacesAPI.getAll().then((places) => {
       this.setState({ places })
     })
   }
@@ -72,6 +73,19 @@ class Map extends Component {
     }
   }
 
+  getImage = (index) => {
+    const { places } = this.state
+    const lat = places[index].location.lat
+    const lng = places[index].location.lng
+    PlacesAPI.searchVenue(lat, lng).then((location) => {
+      const id = location.response.venues[0].id
+      console.log(id)
+      PlacesAPI.getImage(id).then((arr) => {
+        console.log(arr.response.photos.items[0].prefix+ 100 + arr.response.photos.items[0].suffix)
+      })
+    })
+  }
+
   render() {
     return (
       <div>
@@ -89,6 +103,9 @@ class Map extends Component {
           >
           </GoogleMapReact>
           <MainPanel
+            onGetImage={(index) => {
+              this.getImage(index)
+            }}
             infowindows={this.state.infowindowsArr}
             map={this.state.mapObj}
             maps={this.state.mapsObj}
