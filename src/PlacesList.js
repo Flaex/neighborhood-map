@@ -1,24 +1,10 @@
 import React, { Component } from 'react';
 
 class PlacesList extends Component {
-  //Render marker for selected option in dropdown
+  //Capture value selected option in dropdown
   filterClick = (e) => {
-    const { markers, map, infowindows } = this.props
-    const selectedMarker = markers[e]
-    const index = e
-    const markerMatch =  markers.filter((marker) => marker === selectedMarker )
-    const markerNomatch =  markers.filter((marker) => marker !== selectedMarker )
-    if (e === 'choose') {
-      //Avoid errors if "Choose a restaurant" option is selected on dropdown
-    } else {
-      markerNomatch.map(marker => marker.setMap(null))
-      markerMatch.map(marker => marker.setMap(map))
-      infowindows[e].marker = selectedMarker
-      infowindows[e].setContent(`<div class="infowindow">${selectedMarker.title}</div>`)
-      infowindows[e].open(map, selectedMarker)
-    }
-    if (this.props.onGetImage) {
-      this.props.onGetImage(index)
+    if (this.props.onGetID) {
+      this.props.onGetID(e)
     }
   }
    //Render infowindows onMouseOver event in restaurant list elements

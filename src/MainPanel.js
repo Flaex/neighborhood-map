@@ -9,22 +9,23 @@ class MainPanel extends Component {
     infowindows.map(infowindow => infowindow.close())
   }
 
-  getImage = (index) => {
-    if (this.props.onGetImage) {
-      this.props.onGetImage(index)
+  getID = (e) => {
+    if (this.props.onGetID) {
+      this.props.onGetID(e)
     }
   }
 
   render() {
-    const { markers, map, maps, init, places, infowindows } = this.props
+    const { markers, map, maps, init, places, infowindows, renderImages } = this.props
     return (
       <div className="main-panel">
         <h3>Places to eat</h3>
         <button className="reload" onClick={(e) => this.reloadMarkers(e)}></button>
         <PlacesList
-          onGetImage={(index) => {
-            this.getImage(index)
+          onGetID={(e) => {
+            this.getID(e)
           }}
+          renderImages={renderImages}
           places={places}
           markers={markers}
           infowindows={infowindows}
