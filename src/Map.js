@@ -98,7 +98,7 @@ class Map extends Component {
       // Copying the state
       let placesTemp = places
       //Assigning venue Photos to places
-      placesTemp[e].imageURL = arr.response.photos.items[0].prefix + 100 + arr.response.photos.items[0].suffix
+      placesTemp[e].imageURL = arr.response.photos.items[0].prefix + 130 + arr.response.photos.items[0].suffix
       //rendering markers + infowindow with data from Foursquare API on dropdown selection
       const markerMatch =  markersArr.filter((marker) => marker === selectedMarker )
       const markerNomatch =  markersArr.filter((marker) => marker !== selectedMarker )
