@@ -1,16 +1,16 @@
 const api = 'https://api.foursquare.com'
-const clientID = '0J5F0MJE1OVQ2DEF1KE5W1X34JODQ3EOVCLAP2CMOPGUEWKX'
-const clientSecret = 'J35KTFQ1JHJMQF05Y2E23MTTI4B4C54SLBFH0AA0JUNU0V0L'
+const clientID = 'I3KZTR0WWLFFQ3OLALH4V3JP2TPDSO53S5XSCLQLXHHP35YO'
+const clientSecret = 'A2LJAHITSUAWOTJ13RZIPL4KKAGTW551ROJJNPOAIC4H34JB'
 const locations = [
-  {id: 'a', title: 'La Casa Bistró', category:'Homemade food', location: {lat: 10.5023891, lng: -66.8436308}},
-  {id: 'b', title: 'Prana Juice Bar', category: 'Vegetarian food', location: {lat: 10.501294, lng: -66.8435723}},
-  {id: 'c', title: 'Chef Woo', category: 'Chinese food', location: {lat: 10.4972978, lng: -66.8475386}},
-  {id: 'd', title: 'Franca Cupcakes', category: 'Coffeecakaes', location: {lat: 10.4987404, lng: -66.8472482}},
-  {id: 'e', title: 'Pincho Pan', category:'Lebanese food', location: {lat: 10.5007164, lng: -66.8438593}},
-  {id: 'f', title: 'Come a Casa', category: 'Italian food', location: {lat: 10.4990048, lng: -66.8471932}},
-  {id: 'g', title: 'Los Costilla', category: 'Pork sandwiches', location: {lat: 10.5017731, lng: -66.8457472}},
-  {id: 'h', title: 'Krispy Donuts', category: 'Dessert shop', location: {lat: 10.4992448, lng: -66.8411502}},
-  {id: 'i', title: 'Cueva de Iria', category: 'Bakery', location: {lat: 10.5002619, lng: -66.8408081}},
+  {id: 'a', title: 'La Casa Bistró', description:'Homemade food', location: {lat: 10.5023891, lng: -66.8436308}},
+  {id: 'b', title: 'Prana Juice Bar', description: 'Vegetarian food', location: {lat: 10.501294, lng: -66.8435723}},
+  {id: 'c', title: 'Chef Woo', description: 'Chinese food', location: {lat: 10.4972978, lng: -66.8475386}},
+  {id: 'd', title: 'Alto Restaurant', description: 'Molecular gastronomy', location: {lat: 10.5005094, lng: -66.8475176}},
+  {id: 'e', title: 'Pincho Pan', description:'Lebanese food', location: {lat: 10.5007164, lng: -66.8438593}},
+  {id: 'f', title: 'Come a Casa', description: 'Italian food', location: {lat: 10.4990048, lng: -66.8471932}},
+  {id: 'g', title: 'Los Costilla', description: 'Pork sandwiches', location: {lat: 10.5017731, lng: -66.8457472}},
+  {id: 'h', title: 'Krispy Donuts', description: 'Dessert shop', location: {lat: 10.4992448, lng: -66.8411502}},
+  {id: 'i', title: 'Heladería 4D', description: 'Ice cream shop', location: {lat: 10.5014252, lng: -66.8428608}},
 ]
 
 export const searchVenue = (lat, lng) =>

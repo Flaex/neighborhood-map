@@ -13,14 +13,14 @@ class PlacesList extends Component {
     const marker = markers[e]
     if (marker.map !== null) {
       infowindows[e].marker = marker
-      infowindows[e].setContent(`<div class="infowindow">${marker.title}</div>`)
+      infowindows[e].setContent(`<div><h5>${marker.title}</h5></div>`)
       infowindows[e].open(map, marker)
       marker.setAnimation(maps.Animation.BOUNCE)
     } else if (marker.map === null) {
       marker.setMap(map)
       marker.setAnimation(maps.Animation.BOUNCE)
       infowindows[e].marker = marker
-      infowindows[e].setContent(`<div class="infowindow">${marker.title}</div>`)
+      infowindows[e].setContent(`<div><h5>${marker.title}</h5></div>`)
       infowindows[e].open(map, marker)
     }
   }
@@ -43,11 +43,11 @@ class PlacesList extends Component {
               onMouseOver={(e) => this.renderInfowindow(e.target.id)}
               onMouseLeave={(e) => this.removeInfowindow(e.target.id)}>
             {place.title}</p>
-            <p className="category">{place.category}</p>
+            <p className="category">{place.description}</p>
           </li>
         ))}
         </ul>
-        <h4>Filter locations</h4>
+        <h4>Place details</h4>
         <select onChange={(e) => this.filterClick(e.target.value)}>
           <option value='choose' defaultValue>Choose a restaurant:</option>
           {places.map((place) => (

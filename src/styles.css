@@ -54,3 +54,9 @@ h4 { color:#282C34; margin: 0.2em 0 0.2em 0}
   background-size: 24px;
   font-size: 0;
 }
+
+.infowindow { width: 15.5vw; display: grid; grid-auto-flow: column; grid-template-columns: 52% 48%}
+.infowindow .infowindow-image {grid-row: 1 / span 1;  width: 100px; height:100px }
+h5 { font-size: 1.1em; color: #282C34; margin: 0 0 0.2vh 0}
+.infowindow p { font-size:0.95em; font-weight: 600; color:#92817A ; margin: 0 0 0.2vh 0 }
+.infowindow address {font-size:0.90em; font-weight: 400; color:#888}

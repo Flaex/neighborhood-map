@@ -9,7 +9,6 @@ class Map extends Component {
   constructor(props) {
     super(props)
     this.getImage = this.getImage.bind(this)
-    this.renderImages = this.renderImages.bind(this)
   }
 
   static defaultProps = {
@@ -33,7 +32,6 @@ class Map extends Component {
       this.setState({ places })
     })
   }
-
   //Initialization method
   init(map, maps, id) {
     const { places } = this.state
@@ -45,10 +43,10 @@ class Map extends Component {
       //Custom icon based on https://material.io/tools/icons/?icon=restaurant&style=baseline
       var iconImage = {
         url: 'icons/restaurant.svg',
-        size: new maps.Size(25,25),
+        size: new maps.Size(35,35),
         origin: new maps.Point(0, 0),
         anchor: new maps.Point(0, 0),
-        scaledSize: new maps.Size(25, 25)
+        scaledSize: new maps.Size(35, 35)
       }
       //Assigning values to markers
       let marker = new maps.Marker({
@@ -61,7 +59,6 @@ class Map extends Component {
       let infowindow = new maps.InfoWindow()
       infowindows.push(infowindow)
       markers.push(marker)
-
       //Assigning states to passing data to child components as props
       this.setState({markersArr: markers})
       this.setState({infowindowsArr: infowindows})
@@ -77,7 +74,6 @@ class Map extends Component {
       })
     }
   }
-
   //Method for getting Foursquare venue ID
   getID = (e) => {
     const { places } = this.state
@@ -86,43 +82,36 @@ class Map extends Component {
     PlacesAPI.searchVenue(lat, lng).then((location) => {
       //Copying the state
       let placesTemp = places
-      let fourSquareIDs = []
-      //Assigning ID to a specific index
+      //Assigning values to a specific index object
       placesTemp[e].id = location.response.venues[0].id
-      // fourSquareIDs = placesTemp
+      placesTemp[e].category = location.response.venues[0].categories[0].pluralName
+      placesTemp[e].address = location.response.venues[0].location.address
       this.getImage(e, places)
-      // this.renderImages(e, fourSquareIDs)
     })
-
   }
   // Method for getting images from Foursquare API
   getImage = (e, places) => {
+    const { markersArr, mapObj, infowindowsArr } = this.state
+    const selectedMarker = markersArr[e]
     const id = places[e].id
     PlacesAPI.getImage(id).then((arr) => {
       // Copying the state
       let placesTemp = places
-      let fourSquareImages = []
+      //Assigning venue Photos to places
       placesTemp[e].imageURL = arr.response.photos.items[0].prefix + 100 + arr.response.photos.items[0].suffix
-      fourSquareImages = placesTemp
-      this.renderImages(e, fourSquareImages)
+      //rendering markers + infowindow with data from Foursquare API on dropdown selection
+      const markerMatch =  markersArr.filter((marker) => marker === selectedMarker )
+      const markerNomatch =  markersArr.filter((marker) => marker !== selectedMarker )
+      if (e === 'choose') {
+        //Avoid errors if "Choose a restaurant" option is selected on dropdown
+      } else {
+        markerNomatch.map(marker => marker.setMap(null))
+        markerMatch.map(marker => marker.setMap(mapObj))
+        infowindowsArr[e].marker = selectedMarker
+        infowindowsArr[e].setContent(`<div class="infowindow"><div class="infowindow-image" style="background-image: url('${places[e].imageURL}')"></div><div class="place-info"><h5>${places[e].title}</h5><p>${places[e].category}</p><address>${places[e].address}</address></div></div>`)
+        infowindowsArr[e].open(mapObj, selectedMarker)
+      }
     })
-  }
-
-  renderImages = (e, fourSquareImages) => {
-    console.log(fourSquareImages[e])
-    const { markersArr, mapObj, infowindowsArr } = this.state
-    const selectedMarker = markersArr[e]
-    const markerMatch =  markersArr.filter((marker) => marker === selectedMarker )
-    const markerNomatch =  markersArr.filter((marker) => marker !== selectedMarker )
-    if (e === 'choose') {
-      //Avoid errors if "Choose a restaurant" option is selected on dropdown
-    } else {
-      markerNomatch.map(marker => marker.setMap(null))
-      markerMatch.map(marker => marker.setMap(mapObj))
-      infowindowsArr[e].marker = selectedMarker
-      infowindowsArr[e].setContent(`<div class="infowindow"><img src="${fourSquareImages[e].imageURL}"></div>`)
-      infowindowsArr[e].open(mapObj, selectedMarker)
-    }
   }
 
   render() {
