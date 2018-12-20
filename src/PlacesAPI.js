@@ -1,6 +1,6 @@
 const api = 'https://api.foursquare.com'
-const clientID = 'YUQKQR3PF1UWPQ4WKAHPYXNILEDTEJZIMTFHUD1DDZBUFZLS'
-const clientSecret = 'ZW4TLD54NRJ11WLKT12DFOURLWHUTLJ2VFZLJZXMEINPS2XS'
+const clientID = '3UJPLSNET0YBKB1A5IXRSCQRDT5BQ44YKXU22NSQUXF1LNIP'
+const clientSecret = 'ESDPE0YYA4CIFNTWKZH3U1ADGZYMGIWNB1QILEM5MASGU4OP'
 const locations = [
   {id: 'a', title: 'La Casa Bistró', description:'Homemade food', location: {lat: 10.5023891, lng: -66.8436308}},
   {id: 'b', title: 'Prana Juice Bar', description: 'Vegetarian food', location: {lat: 10.501294, lng: -66.8435723}},

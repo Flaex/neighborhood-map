@@ -45,7 +45,7 @@ class Map extends Component {
       let title = places[i].title
       //Custom icon based on https://material.io/tools/icons/?icon=restaurant&style=baseline
       var iconImage = {
-        url: 'icons/restaurant.svg',
+        url: 'img/icons/restaurant.svg',
         size: new maps.Size(35,35),
         origin: new maps.Point(0, 0),
         anchor: new maps.Point(0, 0),
@@ -68,23 +68,23 @@ class Map extends Component {
       this.setState({mapObj: map})
       this.setState({mapsObj: maps})
 
-      marker.addListener('click', () => {
-      //
-        if (infowindow.marker !== marker) {
-          infowindow.setContent('<div>' + marker.title + '</div>');
-          infowindow.open(map, marker);
-        }
-      })
+      // marker.addListener('click', () => {
+      // //
+      //   if (infowindow.marker !== marker) {
+      //     infowindow.setContent('<div>' + marker.title + '</div>');
+      //     infowindow.open(map, marker);
+      //   }
+      // })
     }
   }
 
   //Render infowindows and markers bouncing onMouseOver event in restaurant list elements
   renderInfowindow = (e, map, maps) => {
-    const { markersArr, mapObj, mapsObj, infowindowsArr } = this.state
+    const { markersArr, mapObj, mapsObj, infowindowsArr, filteredPlace } = this.state
     const markerIndex = markersArr.findIndex(x => x.title === e)
     const marker = markersArr[markerIndex]
     //Avoid remove marker bouncing if infowindow is populated
-    if (infowindowsArr[markerIndex]) {
+    if (filteredPlace.length === 1) {
       marker.setAnimation(mapsObj.Animation.BOUNCE)
     } else if (marker.map !== null) {
       infowindowsArr[markerIndex].marker = marker
@@ -102,11 +102,11 @@ class Map extends Component {
 
   //Remove infowindows and markers animation onMouseLeave event in restaurant list elements
   removeInfowindow = (e) => {
-    const { markersArr, infowindowsArr } = this.state
+    const { markersArr, infowindowsArr, filteredPlace } = this.state
     const markerIndex = markersArr.findIndex(x => x.title === e)
     const marker = markersArr[markerIndex]
     //Remove bouncing if infowindow is populated
-    if (infowindowsArr[markerIndex]) {
+    if (filteredPlace.length === 1) {
       marker.setAnimation(null)
     } else {
       infowindowsArr[markerIndex].close()
