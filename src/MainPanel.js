@@ -3,35 +3,49 @@ import PlacesList from './PlacesList'
 
 class MainPanel extends Component {
 
-  reloadMarkers = (e) => {
-    const { markers, map, infowindows } = this.props
-    markers.map(place => place.setMap(map))
-    infowindows.map(infowindow => infowindow.close())
+  dropDownSelection = (e) => {
+    if (this.props.dropDownSelection) {
+      this.props.dropDownSelection(e)
+    }
   }
 
-  getID = (e) => {
-    if (this.props.onGetID) {
-      this.props.onGetID(e)
+  reloadLocations = (e) => {
+    if (this.props.reloadLocations) {
+      this.props.reloadLocations(e)
+    }
+  }
+
+  renderInfowindow = (e) => {
+    if (this.props.renderInfowindow) {
+      this.props.renderInfowindow(e)
+    }
+  }
+
+  removeInfowindow = (e) => {
+    if (this.props.removeInfowindow) {
+      this.props.removeInfowindow(e)
     }
   }
 
   render() {
-    const { markers, map, maps, init, places, infowindows, renderImages } = this.props
+    const { places, filteredPlace } = this.props
     return (
       <div className="main-panel">
         <h3>Places to eat</h3>
-        <button className="reload" onClick={(e) => this.reloadMarkers(e)}></button>
+        <button className="reload" onClick={(e) => this.reloadLocations(e)}></button>
         <PlacesList
-          onGetID={(e) => {
-            this.getID(e)
+          dropDownSelection={(e) => {
+            this.dropDownSelection(e)
           }}
-          renderImages={renderImages}
+          renderInfowindow={(e) => {
+            this.renderInfowindow(e)
+          }}
+          removeInfowindow={(e) => {
+            this.removeInfowindow(e)
+          }}
           places={places}
-          markers={markers}
-          infowindows={infowindows}
-          map={map}
-          maps={maps}
-          init={init} />
+          filteredPlace={filteredPlace}
+          />
       </div>
     );
   }

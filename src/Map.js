@@ -21,6 +21,7 @@ class Map extends Component {
 
   state = {
     places : [],
+    filteredPlace : [],
     markersArr : [],
     mapObj : {},
     mapsObj : {},
@@ -30,10 +31,12 @@ class Map extends Component {
   componentDidMount() {
     PlacesAPI.getAll().then((places) => {
       this.setState({ places })
+      this.setState({ filteredPlace: places })
     })
   }
+
   //Initialization method
-  init(map, maps, id) {
+  init(map, maps) {
     const { places } = this.state
     let markers = []
     let infowindows = []
@@ -74,11 +77,49 @@ class Map extends Component {
       })
     }
   }
-  //Method for getting Foursquare venue ID
-  getID = (e) => {
+
+  //Render infowindows and markers bouncing onMouseOver event in restaurant list elements
+  renderInfowindow = (e, map, maps) => {
+    const { markersArr, mapObj, mapsObj, infowindowsArr } = this.state
+    const markerIndex = markersArr.findIndex(x => x.title === e)
+    const marker = markersArr[markerIndex]
+    //Avoid remove marker bouncing if infowindow is populated
+    if (infowindowsArr[markerIndex]) {
+      marker.setAnimation(mapsObj.Animation.BOUNCE)
+    } else if (marker.map !== null) {
+      infowindowsArr[markerIndex].marker = marker
+      infowindowsArr[markerIndex].setContent(`<div><h5>${marker.title}</h5></div>`)
+      infowindowsArr[markerIndex].open(mapObj, marker)
+      marker.setAnimation(mapsObj.Animation.BOUNCE)
+    } else if (marker.map === null ) {
+      marker.setMap(map)
+      marker.setAnimation(mapsObj.Animation.BOUNCE)
+      infowindowsArr[markerIndex].marker = marker
+      infowindowsArr[markerIndex].setContent(`<div><h5>${marker.title}</h5></div>`)
+      infowindowsArr[markerIndex].open(mapObj, marker)
+    }
+  }
+
+  //Remove infowindows and markers animation onMouseLeave event in restaurant list elements
+  removeInfowindow = (e) => {
+    const { markersArr, infowindowsArr } = this.state
+    const markerIndex = markersArr.findIndex(x => x.title === e)
+    const marker = markersArr[markerIndex]
+    //Remove bouncing if infowindow is populated
+    if (infowindowsArr[markerIndex]) {
+      marker.setAnimation(null)
+    } else {
+      infowindowsArr[markerIndex].close()
+      marker.setAnimation(null)
+    }
+  }
+
+  //Getting data from Foursquare API to populate infowindows
+  dropDownSelection = (e) => {
     const { places } = this.state
     const lat = places[e].location.lat
     const lng = places[e].location.lng
+    //Getting Foursquare venue ID's
     PlacesAPI.searchVenue(lat, lng).then((location) => {
       //Copying the state
       let placesTemp = places
@@ -89,7 +130,8 @@ class Map extends Component {
       this.getImage(e, places)
     })
   }
-  // Method for getting images from Foursquare API
+
+  //Getting images from Foursquare API
   getImage = (e, places) => {
     const { markersArr, mapObj, infowindowsArr } = this.state
     const selectedMarker = markersArr[e]
@@ -99,19 +141,31 @@ class Map extends Component {
       let placesTemp = places
       //Assigning venue Photos to places
       placesTemp[e].imageURL = arr.response.photos.items[0].prefix + 130 + arr.response.photos.items[0].suffix
-      //rendering markers + infowindow with data from Foursquare API on dropdown selection
+      //Rendering markers + infowindow with data from Foursquare API on dropdown selection
       const markerMatch =  markersArr.filter((marker) => marker === selectedMarker )
       const markerNomatch =  markersArr.filter((marker) => marker !== selectedMarker )
       if (e === 'choose') {
         //Avoid errors if "Choose a restaurant" option is selected on dropdown
       } else {
+        //Set selected marker location on map
         markerNomatch.map(marker => marker.setMap(null))
         markerMatch.map(marker => marker.setMap(mapObj))
         infowindowsArr[e].marker = selectedMarker
         infowindowsArr[e].setContent(`<div class="infowindow"><div class="infowindow-image" style="background-image: url('${places[e].imageURL}')"></div><div class="place-info"><h5>${places[e].title}</h5><p>${places[e].category}</p><address>${places[e].address}</address></div></div>`)
         infowindowsArr[e].open(mapObj, selectedMarker)
+        //Filter places list to match selection
+        let selectedPlace = []
+        selectedPlace.push(places[e])
+        this.setState({ filteredPlace : selectedPlace })
       }
     })
+  }
+
+  reloadLocations = (e) => {
+    const { markersArr, mapObj, infowindowsArr, places } = this.state
+    markersArr.map(place => place.setMap(mapObj))
+    infowindowsArr.map(infowindow => infowindow.close())
+    this.setState({ filteredPlace : places })
   }
 
   render() {
@@ -131,17 +185,21 @@ class Map extends Component {
           >
           </GoogleMapReact>
           <MainPanel
-            onGetID={(e) => {
-              this.getID(e)
+            dropDownSelection={(e) => {
+              this.dropDownSelection(e)
             }}
-            renderImages={this.renderImages}
-            infowindows={this.state.infowindowsArr}
-            map={this.state.mapObj}
-            maps={this.state.mapsObj}
-            fourSquareIDs={this.state.fourSquareIDs}
+            renderInfowindow={(e) => {
+              this.renderInfowindow(e)
+            }}
+            removeInfowindow={(e) => {
+              this.removeInfowindow(e)
+            }}
+            reloadLocations={(e) => {
+              this.reloadLocations(e)
+            }}
             places={this.state.places}
-            markers={this.state.markersArr}
-            init={this.init} />
+            filteredPlace={this.state.filteredPlace}
+            />
         </div>
       </div>
     );
