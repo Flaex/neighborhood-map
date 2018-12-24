@@ -48,7 +48,7 @@ h4 { color:#282C34; margin: 0.2em 0 0.2em 0}
   height: 24px;
   background: none;
   border: none;
-  background-image: url('./icons/cache.svg');
+  background-image: url('/static/img/icons/cache.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 24px;

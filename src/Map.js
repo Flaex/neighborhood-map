@@ -45,7 +45,7 @@ class Map extends Component {
       let title = places[i].title
       //Custom icon based on https://material.io/tools/icons/?icon=restaurant&style=baseline
       var iconImage = {
-        url: 'img/icons/restaurant.svg',
+        url: 'static/img/icons/restaurant.svg',
         size: new maps.Size(35,35),
         origin: new maps.Point(0, 0),
         anchor: new maps.Point(0, 0),
