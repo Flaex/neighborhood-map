@@ -168,6 +168,10 @@ class Map extends Component {
     this.setState({ filteredPlace : places })
   }
 
+  openNav() {
+    document.querySelector('.main-panel').style.width = '180px';
+  }
+
   render() {
     return (
       <div>
@@ -184,6 +188,7 @@ class Map extends Component {
             yesIWantToUseGoogleMapApiInternals
           >
           </GoogleMapReact>
+          <button className="open-menu" onClick={(e) => this.openNav(e)}>&#9776;</button>
           <MainPanel
             dropDownSelection={(e) => {
               this.dropDownSelection(e)

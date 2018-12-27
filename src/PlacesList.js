@@ -22,10 +22,23 @@ class PlacesList extends Component {
     }
   }
 
+  reloadLocations = (e) => {
+    if (this.props.reloadLocations) {
+      this.props.reloadLocations(e)
+    }
+  }
+
+  closeNav() {
+    document.querySelector('.main-panel').style.width = '0px';
+  }
+
   render() {
     const { places, filteredPlace } = this.props
     return (
       <div className="places-container">
+        <button className="close-menu" onClick={(e) => this.closeNav(e)}>&times;</button>
+        <h3>Places to eat</h3>
+        <button className="reload" onClick={(e) => this.reloadLocations(e)}>Reload list&#x21b7;</button>
         <ul className="places-list">
         {filteredPlace.map((place) => (
           <li key={place.id}>
@@ -38,9 +51,9 @@ class PlacesList extends Component {
           </li>
         ))}
         </ul>
-        <h4>Place details</h4>
-        <select onChange={(e) => this.dropDownSelection(e.target.value)}>
-          <option value='choose' defaultValue>Choose a restaurant:</option>
+        <h4>Details</h4>
+        <select className="places-dropdown" onChange={(e) => this.dropDownSelection(e.target.value)}>
+          <option value='choose' defaultValue>Choose a place:</option>
           {places.map((place) => (
             <option key={place.id} value={places.indexOf(place)}>{place.title}</option>
           ))}

@@ -31,8 +31,6 @@ class MainPanel extends Component {
     const { places, filteredPlace } = this.props
     return (
       <div className="main-panel">
-        <h3>Places to eat</h3>
-        <button className="reload" onClick={(e) => this.reloadLocations(e)}></button>
         <PlacesList
           dropDownSelection={(e) => {
             this.dropDownSelection(e)
@@ -42,6 +40,9 @@ class MainPanel extends Component {
           }}
           removeInfowindow={(e) => {
             this.removeInfowindow(e)
+          }}
+          reloadLocations={(e) => {
+            this.reloadLocations(e)
           }}
           places={places}
           filteredPlace={filteredPlace}
