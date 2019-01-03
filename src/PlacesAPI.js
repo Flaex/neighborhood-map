@@ -1,8 +1,8 @@
 const api = 'https://api.foursquare.com'
 const clientID = '3UJPLSNET0YBKB1A5IXRSCQRDT5BQ44YKXU22NSQUXF1LNIP'
 const clientSecret = 'ESDPE0YYA4CIFNTWKZH3U1ADGZYMGIWNB1QILEM5MASGU4OP'
-const port = 3000 //Set port for production
-const host = 'localhost' //Set host for production, change this to localhost for development
+const port = 3000 //Set port for testing purposes
+const host = '127.0.0.1' //Set host for testing purposes, change this to localhost for development
 
 export const getAll = () =>
 fetch(`http://${host}:${port}/utils/locations.json`)
