@@ -3,39 +3,59 @@
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 100;
-  src: url('/static/fonts/roboto-v18-latin-100.eot'); /* IE9 Compat Modes */
+  src: url('/static/fonts/roboto-v18-latin-100.eot');
+  /* IE9 Compat Modes */
   src: local('Roboto Thin'), local('Roboto-Thin'),
-       url('/static/fonts/roboto-v18-latin-100.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('/static/fonts/roboto-v18-latin-100.woff2') format('woff2'), /* Super Modern Browsers */
-       url('/static/fonts/roboto-v18-latin-100.woff') format('woff'), /* Modern Browsers */
-       url('/static/fonts/roboto-v18-latin-100.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('/static/fonts/roboto-v18-latin-100.svg#Roboto') format('svg'); /* Legacy iOS */
+    url('/static/fonts/roboto-v18-latin-100.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */
+    url('/static/fonts/roboto-v18-latin-100.woff2') format('woff2'),
+    /* Super Modern Browsers */
+    url('/static/fonts/roboto-v18-latin-100.woff') format('woff'),
+    /* Modern Browsers */
+    url('/static/fonts/roboto-v18-latin-100.ttf') format('truetype'),
+    /* Safari, Android, iOS */
+    url('/static/fonts/roboto-v18-latin-100.svg#Roboto') format('svg');
+  /* Legacy iOS */
 }
+
 /* roboto-regular - latin */
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  src: url('/static/fonts/roboto-v18-latin-regular.eot'); /* IE9 Compat Modes */
+  src: url('/static/fonts/roboto-v18-latin-regular.eot');
+  /* IE9 Compat Modes */
   src: local('Roboto'), local('Roboto-Regular'),
-       url('/static/fonts/roboto-v18-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('/static/fonts/roboto-v18-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-       url('/static/fonts/roboto-v18-latin-regular.woff') format('woff'), /* Modern Browsers */
-       url('/static/fonts/roboto-v18-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('/static/fonts/roboto-v18-latin-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+    url('/static/fonts/roboto-v18-latin-regular.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */
+    url('/static/fonts/roboto-v18-latin-regular.woff2') format('woff2'),
+    /* Super Modern Browsers */
+    url('/static/fonts/roboto-v18-latin-regular.woff') format('woff'),
+    /* Modern Browsers */
+    url('/static/fonts/roboto-v18-latin-regular.ttf') format('truetype'),
+    /* Safari, Android, iOS */
+    url('/static/fonts/roboto-v18-latin-regular.svg#Roboto') format('svg');
+  /* Legacy iOS */
 }
+
 /* roboto-700 - latin */
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 700;
-  src: url('/static/fonts/roboto-v18-latin-700.eot'); /* IE9 Compat Modes */
+  src: url('/static/fonts/roboto-v18-latin-700.eot');
+  /* IE9 Compat Modes */
   src: local('Roboto Bold'), local('Roboto-Bold'),
-       url('/static/fonts/roboto-v18-latin-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-       url('/static/fonts/roboto-v18-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
-       url('/static/fonts/roboto-v18-latin-700.woff') format('woff'), /* Modern Browsers */
-       url('/static/fonts/roboto-v18-latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
-       url('/static/fonts/roboto-v18-latin-700.svg#Roboto') format('svg'); /* Legacy iOS */
+    url('/static/fonts/roboto-v18-latin-700.eot?#iefix') format('embedded-opentype'),
+    /* IE6-IE8 */
+    url('/static/fonts/roboto-v18-latin-700.woff2') format('woff2'),
+    /* Super Modern Browsers */
+    url('/static/fonts/roboto-v18-latin-700.woff') format('woff'),
+    /* Modern Browsers */
+    url('/static/fonts/roboto-v18-latin-700.ttf') format('truetype'),
+    /* Safari, Android, iOS */
+    url('/static/fonts/roboto-v18-latin-700.svg#Roboto') format('svg');
+  /* Legacy iOS */
 }
 
 body {
@@ -165,9 +185,7 @@ h5 {
 }
 
 /* Portrait and Landscape */
-@media only screen and (min-device-width: 320px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: portrait) {
+@media only screen and (min-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
   h1 {
     text-align: center;
   }
@@ -203,7 +221,8 @@ h5 {
   }
 
   .places-container {
-    margin: 6px;  }
+    margin: 6px;
+  }
 
   .places-dropdown {
     -webkit-appearance: button;
@@ -217,37 +236,36 @@ h5 {
   }
 }
 
+@media only screen and (min-device-width: 320px) and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+  h4 {
+    margin-top: 15px
+  }
 
-@media only screen and (min-device-width: 320px)
-  and (max-device-width: 768px)
-  and (-webkit-min-device-pixel-ratio: 2)
-  and (orientation: landscape) {
-    h4 {margin-top: 15px}
-    .open-menu {
-      display: none;
-    }
+  .open-menu {
+    display: none;
+  }
 
-    .close-menu {
-      display: none;
-    }
+  .close-menu {
+    display: none;
+  }
 
-    .main-panel {
-      width: 24%;
-      height: 90vh;
-      overflow: scroll;
-    }
-    .places-container {
-      margin: 6px;
-      background-color: #fff;
+  .main-panel {
+    width: 24%;
+    height: 90vh;
+    overflow: scroll;
+  }
 
-    }
+  .places-container {
+    margin: 6px;
+    background-color: #fff;
+  }
 
-    .places-dropdown {
-      margin-bottom: 10px;
-      font-size: 0.8em;
-      min-width: 150px;
-      background-image: none;
-    }
+  .places-dropdown {
+    margin-bottom: 10px;
+    font-size: 0.8em;
+    min-width: 150px;
+    background-image: none;
+  }
 }
 
 @media only screen and (min-device-width: 768px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1) {

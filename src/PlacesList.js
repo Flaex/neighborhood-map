@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 class PlacesList extends Component {
   //Capture value selected option in dropdown
@@ -33,33 +33,26 @@ class PlacesList extends Component {
   }
 
   render() {
-    const { places, filteredPlace } = this.props
-    return (
-      <div className="places-container" tabIndex="0">
-        <button className="close-menu" onClick={(e) => this.closeNav(e)}>&times;</button>
-        <h3>Places to eat</h3>
-        <button className="reload" onClick={(e) => this.reloadLocations(e)}>Reload list&#x21b7;</button>
-        <ul className="places-list">
-        {filteredPlace.map((place) => (
-          <li key={place.id}>
-            <p id={place.title}
-              onMouseOver={(e) => this.renderInfowindow(e.target.id)}
-              onMouseLeave={(e) => this.removeInfowindow(e.target.id)}
-              >
-            {place.title}</p>
-            <p className="category">{place.description}</p>
-          </li>
-        ))}
-        </ul>
-        <h4>Details</h4>
-        <select className="places-dropdown" onChange={(e) => this.dropDownSelection(e.target.value)}>
-          <option value='choose' defaultValue>Choose a place:</option>
-          {places.map((place) => (
-            <option key={place.id} value={places.indexOf(place)}>{place.title}</option>
-          ))}
-        </select>
-      </div>
-    );
+    const {places, filteredPlace} = this.props
+    return (<div className="places-container" tabIndex="-1">
+      <button className="close-menu" onClick={(e) => this.closeNav(e)}>&times;</button>
+      <h3 tabIndex="0">Places to eat</h3>
+      <button className="reload" onClick={(e) => this.reloadLocations(e)}>Reload list&#x21b7;</button>
+      <ul className="places-list">
+        {
+          filteredPlace.map((place) => (<li key={place.id}>
+            <p tabIndex="0" id={place.title} onMouseOver={(e) => this.renderInfowindow(e.target.id)} onMouseLeave={(e) => this.removeInfowindow(e.target.id)}>
+              {place.title}</p>
+            <p tabIndex="0" className="category">{place.description}</p>
+          </li>))
+        }
+      </ul>
+      <h4>Details</h4>
+      <select className="places-dropdown" onChange={(e) => this.dropDownSelection(e.target.value)}>
+        <option value='choose' defaultValue="defaultValue">Choose a place:</option>
+        {places.map((place) => (<option key={place.id} value={places.indexOf(place)}>{place.title}</option>))}
+      </select>
+    </div>);
   }
 }
 

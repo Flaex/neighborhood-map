@@ -1,44 +1,44 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Neighborhood Map (React) Project
+This is my version for Neighborhood Map project for Udacity Front-end nanodegree program. The objective is to build an application using React framework that make requests to Google maps and Foursquare API's to search, fetch places provided on the [`locations.json`](public/utils/locations.json) file.
 
-## Available Scripts
+# PlacesAPI.js
+ The provided file [`PlacesAPI.js`](src/PlacesAPI.js) contains the methods needed to perform necessary operations to make request to Foursquare API and local database.
+* [`getAll`] --> Get all locations specified on json file
+* [`searchVenue`] --> Get a specific venue on Foursquare API.
+* [`getImage`] --> Get a specific venue photo on Foursquare API.
+In the very top of this file there are the credentials needed to connect to Foursquare API successfully and a couple of variables to help with development and production tests
 
-In the project directory, you can run:
+## Installling
+To run successfully the frontend application it is required to have node.js installed on the system.
+* [`npm install`]. To install required node modules and dependencies
 
-### `npm start`
+## Running
+To start and open the front-end application on the default browser, navigate to you project on command prompt and type the following command
+* [`npm start`] to run development environment.
+* [`npm run build`] --> To be able to test and verify serviceworker configuration it is necessary to run a production version. This repository does not track any file of the mentioned version of the app, the following code must be placed on the serviceworker in order to cache images and font folders correctly:
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+workbox.routing.registerRoute(
+  // Cache image files
+  new RegExp('/static/fonts/'),
+  // Use the cache if it's available
+  workbox.strategies.cacheFirst({
+    // Use a custom cache name
+    cacheName: 'fonts-cache-v1',
+  })
+);
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+workbox.routing.registerRoute(
+  // Cache image files
+  new RegExp('/static/img/'),
+  // Use the cache if it's available
+  workbox.strategies.cacheFirst({
+    // Use a custom cache name
+    cacheName: 'img-cache-v1',
+  })
+);
 
-### `npm test`
+## Using the App
+* [`Main page`] The main page will show a map and the list of locations with its filter. Each location has its own marker in the map, the filter will display specific details of the selected option in the dropdown. There is a button below the panel title that will reset the list to show all places.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
+This is my first react app made from scratch. Please feel free on suggesting better patterns or better ways to achieve specific tasks.

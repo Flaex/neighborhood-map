@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PlacesList from './PlacesList'
 
 class MainPanel extends Component {
@@ -28,27 +28,18 @@ class MainPanel extends Component {
   }
 
   render() {
-    const { places, filteredPlace } = this.props
-    return (
-      <div className="main-panel" tabIndex="-1">
-        <PlacesList
-          dropDownSelection={(e) => {
-            this.dropDownSelection(e)
-          }}
-          renderInfowindow={(e) => {
-            this.renderInfowindow(e)
-          }}
-          removeInfowindow={(e) => {
-            this.removeInfowindow(e)
-          }}
-          reloadLocations={(e) => {
-            this.reloadLocations(e)
-          }}
-          places={places}
-          filteredPlace={filteredPlace}
-          />
-      </div>
-    );
+    const {places, filteredPlace} = this.props
+    return (<div className="main-panel" tabIndex="-1">
+      <PlacesList dropDownSelection={(e) => {
+          this.dropDownSelection(e)
+        }} renderInfowindow={(e) => {
+          this.renderInfowindow(e)
+        }} removeInfowindow={(e) => {
+          this.removeInfowindow(e)
+        }} reloadLocations={(e) => {
+          this.reloadLocations(e)
+        }} places={places} filteredPlace={filteredPlace}/>
+    </div>);
   }
 }
 

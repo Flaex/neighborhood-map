@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import GoogleMapReact from 'google-map-react';
 import MainPanel from './MainPanel'
 import * as PlacesAPI from './PlacesAPI'
@@ -20,45 +20,39 @@ class Map extends Component {
   }
 
   state = {
-    places : [],
-    filteredPlace : [],
-    markersArr : [],
-    mapObj : {},
-    mapsObj : {},
+    places: [],
+    filteredPlace: [],
+    markersArr: [],
+    mapObj: {},
+    mapsObj: {},
     infowindowsArr: []
   }
 
   componentDidMount() {
     PlacesAPI.getAll().then((places) => {
-      this.setState({ places })
-      this.setState({ filteredPlace: places })
+      this.setState({places})
+      this.setState({filteredPlace: places})
     })
   }
 
   //Initialization method
   init(map, maps) {
-    const { places } = this.state
+    const {places} = this.state
     let markers = []
     let infowindows = []
     for (let i = 0; i < places.length; i++) {
       let position = places[i].location
       let title = places[i].title
       //Custom icon based on https://material.io/tools/icons/?icon=restaurant&style=baseline
-      var iconImage = {
+      const iconImage = {
         url: 'static/img/icons/restaurant.svg',
-        size: new maps.Size(35,35),
+        size: new maps.Size(35, 35),
         origin: new maps.Point(0, 0),
         anchor: new maps.Point(0, 0),
         scaledSize: new maps.Size(35, 35)
       }
       //Assigning values to markers
-      let marker = new maps.Marker({
-        map: map,
-        position: position,
-        title: title,
-        icon: iconImage,
-        animation: maps.Animation.DROP
-      })
+      let marker = new maps.Marker({map: map, position: position, title: title, icon: iconImage, animation: maps.Animation.DROP})
       let infowindow = new maps.InfoWindow()
       infowindows.push(infowindow)
       markers.push(marker)
@@ -68,31 +62,16 @@ class Map extends Component {
       this.setState({mapObj: map})
       this.setState({mapsObj: maps})
 
-      const mapGeneralContainer = document.querySelector('.map')
-      mapGeneralContainer.setAttribute('aria-hidden', 'true');
-      mapGeneralContainer.setAttribute('tabIndex', '-1');
-
-      const mapMainContainer = document.querySelector('.gm-style').firstElementChild
+      //Avoid focus on child element to help tab navigation
+      const mapMainContainer = document.querySelector('.gm-style').firstElementChild;
       mapMainContainer.setAttribute('aria-hidden', 'true');
       mapMainContainer.setAttribute('tabIndex', '-1');
-
-      const mapIframe= document.querySelector('iframe')
-      mapIframe.setAttribute('aria-hidden', 'true');
-      mapIframe.setAttribute('tabIndex', '-1');
-
-      // marker.addListener('click', () => {
-      // //
-      //   if (infowindow.marker !== marker) {
-      //     infowindow.setContent('<div>' + marker.title + '</div>');
-      //     infowindow.open(map, marker);
-      //   }
-      // })
     }
   }
 
   //Render infowindows and markers bouncing onMouseOver event in restaurant list elements
   renderInfowindow = (e, map, maps) => {
-    const { markersArr, mapObj, mapsObj, infowindowsArr, filteredPlace } = this.state
+    const {markersArr, mapObj, mapsObj, infowindowsArr, filteredPlace} = this.state
     const markerIndex = markersArr.findIndex(x => x.title === e)
     const marker = markersArr[markerIndex]
     //Avoid remove marker bouncing if infowindow is populated
@@ -103,7 +82,7 @@ class Map extends Component {
       infowindowsArr[markerIndex].setContent(`<div><h5>${marker.title}</h5></div>`)
       infowindowsArr[markerIndex].open(mapObj, marker)
       marker.setAnimation(mapsObj.Animation.BOUNCE)
-    } else if (marker.map === null ) {
+    } else if (marker.map === null) {
       marker.setMap(map)
       marker.setAnimation(mapsObj.Animation.BOUNCE)
       infowindowsArr[markerIndex].marker = marker
@@ -114,7 +93,7 @@ class Map extends Component {
 
   //Remove infowindows and markers animation onMouseLeave event in restaurant list elements
   removeInfowindow = (e) => {
-    const { markersArr, infowindowsArr, filteredPlace } = this.state
+    const {markersArr, infowindowsArr, filteredPlace} = this.state
     const markerIndex = markersArr.findIndex(x => x.title === e)
     const marker = markersArr[markerIndex]
     //Remove bouncing if infowindow is populated
@@ -128,7 +107,7 @@ class Map extends Component {
 
   //Getting data from Foursquare API to populate infowindows
   dropDownSelection = (e) => {
-    const { places } = this.state
+    const {places} = this.state
     const lat = places[e].location.lat
     const lng = places[e].location.lng
     //Getting Foursquare venue ID's
@@ -145,7 +124,7 @@ class Map extends Component {
 
   //Getting images from Foursquare API
   getImage = (e, places) => {
-    const { markersArr, mapObj, infowindowsArr } = this.state
+    const {markersArr, mapObj, infowindowsArr} = this.state
     const selectedMarker = markersArr[e]
     const id = places[e].id
     PlacesAPI.getImage(id).then((arr) => {
@@ -154,8 +133,8 @@ class Map extends Component {
       //Assigning venue Photos to places
       placesTemp[e].imageURL = arr.response.photos.items[0].prefix + 130 + arr.response.photos.items[0].suffix
       //Rendering markers + infowindow with data from Foursquare API on dropdown selection
-      const markerMatch =  markersArr.filter((marker) => marker === selectedMarker )
-      const markerNomatch =  markersArr.filter((marker) => marker !== selectedMarker )
+      const markerMatch = markersArr.filter((marker) => marker === selectedMarker)
+      const markerNomatch = markersArr.filter((marker) => marker !== selectedMarker)
       if (e === 'choose') {
         //Avoid errors if "Choose a restaurant" option is selected on dropdown
       } else {
@@ -168,16 +147,16 @@ class Map extends Component {
         //Filter places list to match selection
         let selectedPlace = []
         selectedPlace.push(places[e])
-        this.setState({ filteredPlace : selectedPlace })
+        this.setState({filteredPlace: selectedPlace})
       }
     })
   }
 
   reloadLocations = (e) => {
-    const { markersArr, mapObj, infowindowsArr, places } = this.state
+    const {markersArr, mapObj, infowindowsArr, places} = this.state
     markersArr.map(place => place.setMap(mapObj))
     infowindowsArr.map(infowindow => infowindow.close())
-    this.setState({ filteredPlace : places })
+    this.setState({filteredPlace: places})
   }
 
   openNav() {
@@ -185,41 +164,30 @@ class Map extends Component {
   }
 
   render() {
-    return (
-      <div tabIndex="-1">
-        <header tabIndex="-1">
-          <h1 tabIndex="0" className="main-title">My favorite places to eat in my Neighborhood</h1>
-        </header>
-        {/* Component defined on https://www.npmjs.com/package/google-map-react */}
-        <div className="map" style={{ height: '90vh', width: '100%' }}>
-          <GoogleMapReact
-            bootstrapURLKeys={{ key: 'AIzaSyBB4845mdrbpL1Ub833ZI1JzneXenLBU_Q' }}
-            defaultCenter={this.props.center}
-            defaultZoom={this.props.zoom}
-            onGoogleApiLoaded={({map, maps}) => this.init(map, maps)}
-            yesIWantToUseGoogleMapApiInternals
-          >
-          </GoogleMapReact>
-          <button tabIndex="-1" className="open-menu" onClick={(e) => this.openNav(e)}>&#9776;</button>
-          <MainPanel
-            dropDownSelection={(e) => {
-              this.dropDownSelection(e)
-            }}
-            renderInfowindow={(e) => {
-              this.renderInfowindow(e)
-            }}
-            removeInfowindow={(e) => {
-              this.removeInfowindow(e)
-            }}
-            reloadLocations={(e) => {
-              this.reloadLocations(e)
-            }}
-            places={this.state.places}
-            filteredPlace={this.state.filteredPlace}
-            />
-        </div>
+    return (<div tabIndex="-1">
+      <header tabIndex="-1">
+        <h1 tabIndex="0" className="main-title">My favorite places to eat in my Neighborhood</h1>
+      </header>
+      {/* Component defined on https://www.npmjs.com/package/google-map-react */}
+      <div className="map" style={{
+          height: '90vh',
+          width: '100%'
+        }}>
+        <GoogleMapReact bootstrapURLKeys={{
+            key: 'AIzaSyBB4845mdrbpL1Ub833ZI1JzneXenLBU_Q'
+          }} defaultCenter={this.props.center} defaultZoom={this.props.zoom} onGoogleApiLoaded={({map, maps}) => this.init(map, maps)} yesIWantToUseGoogleMapApiInternals="yesIWantToUseGoogleMapApiInternals"></GoogleMapReact>
+        <button tabIndex="-1" className="open-menu" onClick={(e) => this.openNav(e)}>&#9776;</button>
+        <MainPanel dropDownSelection={(e) => {
+            this.dropDownSelection(e)
+          }} renderInfowindow={(e) => {
+            this.renderInfowindow(e)
+          }} removeInfowindow={(e) => {
+            this.removeInfowindow(e)
+          }} reloadLocations={(e) => {
+            this.reloadLocations(e)
+          }} places={this.state.places} filteredPlace={this.state.filteredPlace}/>
       </div>
-    );
+    </div>);
   }
 }
 
