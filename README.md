@@ -17,7 +17,8 @@ To start and open the front-end application on the default browser, navigate to 
 * [`npm start`] to run development environment.
 * [`npm run build`] --> To be able to test and verify serviceworker configuration it is necessary to run a production version. This repository does not track any file of the mentioned version of the app, the following code must be placed on the serviceworker in order to cache images and font folders correctly:
 
-`workbox.routing.registerRoute(
+```javascript
+workbox.routing.registerRoute(
   // Cache image files
   new RegExp('/static/fonts/'),
   // Use the cache if it's available
@@ -35,8 +36,8 @@ workbox.routing.registerRoute(
     // Use a custom cache name
     cacheName: 'img-cache-v1',
   })
-);`
-
+);
+```
 ## Using the App
 * [`Main page`] The main page will show a map and the list of locations with its filter. Each location has its own marker in the map, the filter will display specific details of the selected option in the dropdown. There is a button below the panel title that will reset the list to show all places.
 
