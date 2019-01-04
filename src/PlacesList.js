@@ -35,7 +35,7 @@ class PlacesList extends Component {
   render() {
     const { places, filteredPlace } = this.props
     return (
-      <div className="places-container">
+      <div className="places-container" tabIndex="0">
         <button className="close-menu" onClick={(e) => this.closeNav(e)}>&times;</button>
         <h3>Places to eat</h3>
         <button className="reload" onClick={(e) => this.reloadLocations(e)}>Reload list&#x21b7;</button>

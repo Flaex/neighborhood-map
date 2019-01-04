@@ -30,7 +30,7 @@ class MainPanel extends Component {
   render() {
     const { places, filteredPlace } = this.props
     return (
-      <div className="main-panel">
+      <div className="main-panel" tabIndex="-1">
         <PlacesList
           dropDownSelection={(e) => {
             this.dropDownSelection(e)

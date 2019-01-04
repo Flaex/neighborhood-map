@@ -68,6 +68,18 @@ class Map extends Component {
       this.setState({mapObj: map})
       this.setState({mapsObj: maps})
 
+      const mapGeneralContainer = document.querySelector('.map')
+      mapGeneralContainer.setAttribute('aria-hidden', 'true');
+      mapGeneralContainer.setAttribute('tabIndex', '-1');
+
+      const mapMainContainer = document.querySelector('.gm-style').firstElementChild
+      mapMainContainer.setAttribute('aria-hidden', 'true');
+      mapMainContainer.setAttribute('tabIndex', '-1');
+
+      const mapIframe= document.querySelector('iframe')
+      mapIframe.setAttribute('aria-hidden', 'true');
+      mapIframe.setAttribute('tabIndex', '-1');
+
       // marker.addListener('click', () => {
       // //
       //   if (infowindow.marker !== marker) {
@@ -174,9 +186,9 @@ class Map extends Component {
 
   render() {
     return (
-      <div>
-        <header>
-          <h1 className="main-title">My favorite places to eat in my Neighborhood</h1>
+      <div tabIndex="-1">
+        <header tabIndex="-1">
+          <h1 tabIndex="0" className="main-title">My favorite places to eat in my Neighborhood</h1>
         </header>
         {/* Component defined on https://www.npmjs.com/package/google-map-react */}
         <div className="map" style={{ height: '90vh', width: '100%' }}>
@@ -188,7 +200,7 @@ class Map extends Component {
             yesIWantToUseGoogleMapApiInternals
           >
           </GoogleMapReact>
-          <button className="open-menu" onClick={(e) => this.openNav(e)}>&#9776;</button>
+          <button tabIndex="-1" className="open-menu" onClick={(e) => this.openNav(e)}>&#9776;</button>
           <MainPanel
             dropDownSelection={(e) => {
               this.dropDownSelection(e)
