@@ -175,7 +175,7 @@ class Map extends Component {
         }}>
         <GoogleMapReact bootstrapURLKeys={{
             key: 'AIzaSyBB4845mdrbpL1Ub833ZI1JzneXenLBU_Q'
-          }} defaultCenter={this.props.center} defaultZoom={this.props.zoom} onGoogleApiLoaded={({map, maps}) => this.init(map, maps)} yesIWantToUseGoogleMapApiInternals="yesIWantToUseGoogleMapApiInternals"></GoogleMapReact>
+          }} defaultCenter={this.props.center} defaultZoom={this.props.zoom} onGoogleApiLoaded={({map, maps}) => this.init(map, maps)} yesIWantToUseGoogleMapApiInternals={true}></GoogleMapReact>
         <button tabIndex="-1" className="open-menu" onClick={(e) => this.openNav(e)}>&#9776;</button>
         <MainPanel dropDownSelection={(e) => {
             this.dropDownSelection(e)
