@@ -7,14 +7,14 @@ const host = 'localhost' //Set host for testing purposes, change this to localho
 export const getAll = () =>
   fetch(`http://${host}:${port}/utils/locations.json`)
   .then((places) => places.json())
-  .catch(() => console.log('Locations could not be loaded'))
+  .catch(() => alert('Locations could not be loaded'))
 
 export const searchVenue = (lat, lng) =>
   fetch(`${api}/v2/venues/search?client_id=${clientID}&client_secret=${clientSecret}&v=20180323&limit=1&ll=${lat},${lng}`)
   .then(res => res.json())
-  .catch(() => console.log('Foursquare API is not responding'))
+  .catch(() => alert('Foursquare API is not responding'))
 
 export const getImage = (id) =>
   fetch(`${api}/v2/venues/${id}/photos?client_id=${clientID}&client_secret=${clientSecret}&v=20180323`)
   .then(res => res.json())
-  .catch(() => console.log('Foursquare API is not responding'))
+  .catch(() => alert('Foursquare API is not responding'))
