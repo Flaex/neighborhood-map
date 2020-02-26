@@ -6,15 +6,15 @@ const host = 'localhost' //Set host for testing purposes, change this to localho
 
 export const getAll = () =>
   fetch(`http://${host}:${port}/utils/locations.json`)
-  .then((places) => places.json())
-  .catch(() => alert('Locations could not be loaded'))
+    .then((places) => places.json())
+    .catch(() => alert('Locations could not be loaded'))
 
 export const searchVenue = (lat, lng) =>
   fetch(`${api}/v2/venues/search?client_id=${clientID}&client_secret=${clientSecret}&v=20180323&limit=1&ll=${lat},${lng}`)
-  .then(res => res.json())
-  .catch(() => alert('Foursquare API is not responding'))
+    .then(res => res.json())
+    .catch(() => alert('Foursquare API is not responding'))
 
-export const getImage = (id) =>
+export const getImage = id =>
   fetch(`${api}/v2/venues/${id}/photos?client_id=${clientID}&client_secret=${clientSecret}&v=20180323`)
-  .then(res => res.json())
-  .catch(() => alert('Foursquare API is not responding'))
+    .then(res => res.json())
+    .catch(() => alert('Foursquare API is not responding'))
