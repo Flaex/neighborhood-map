@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import MainPanel from './MainPanel'
-import * as PlacesAPI from './PlacesAPI'
+import MainPanel from './MainPanel';
+import * as PlacesAPI from './PlacesAPI';
 import './styles.css';
 
 class Map extends Component {

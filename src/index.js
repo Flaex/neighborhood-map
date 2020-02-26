@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Map from './Map';
 import * as serviceWorker from './serviceWorker';
+// Environments variables
+import { config } from 'dotenv';
+
+config()
 
 ReactDOM.render(<Map />, document.getElementById('root'));
 

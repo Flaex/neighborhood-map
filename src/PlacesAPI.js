@@ -1,6 +1,6 @@
-const api = 'https://api.foursquare.com'
-const clientID = '3UJPLSNET0YBKB1A5IXRSCQRDT5BQ44YKXU22NSQUXF1LNIP'
-const clientSecret = 'ESDPE0YYA4CIFNTWKZH3U1ADGZYMGIWNB1QILEM5MASGU4OP'
+const api = process.env.API
+const clientID = process.env.CLIENT_ID
+const clientSecret = process.env.CLIENT_SECRET
 const port = 3000 //Set port for testing purposes
 const host = 'localhost' //Set host for testing purposes, change this to localhost for development
 
